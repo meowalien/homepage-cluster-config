@@ -18,4 +18,4 @@ spec:
     automated:
       prune: true
       selfHeal: true
-  revisionHistoryLimit: 5
+  revisionHistoryLimit: 3
