@@ -8,3 +8,5 @@ kill $(lsof -ti:8888 -sTCP:LISTEN) 2>/dev/null
 gcloud compute ssh bastion-vm \
     --tunnel-through-iap \
     -- -L 8888:localhost:8888 -N -q -f
+
+./proxy.sh
