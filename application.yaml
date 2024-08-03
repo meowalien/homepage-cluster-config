@@ -100,6 +100,7 @@ spec:
               memory: "512Mi"
             requests:
               memory: "512Mi"
+          watchNamespace: "mongodb-cluster"
   destination:
     server: https://kubernetes.default.svc
     namespace: mongodb-operator
@@ -126,6 +127,29 @@ spec:
   destination:
     server: https://kubernetes.default.svc
     namespace: mongodb-cluster
+  syncPolicy:
+    syncOptions:
+    - CreateNamespace=true
+    automated:
+      prune: true
+      selfHeal: true
+  revisionHistoryLimit: 3
+
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: mongo-express
+  namespace: argocd
+spec:
+  project: default
+  source:
+      repoURL: git@github.com:meowalien/homepage-cluster-config.git
+      targetRevision: HEAD
+      path: mongo-express
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: mongo-express
   syncPolicy:
     syncOptions:
     - CreateNamespace=true
