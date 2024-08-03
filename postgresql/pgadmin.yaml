@@ -83,7 +83,7 @@ spec:
         resources:
           requests:
             storage: 3Gi
-
+        storageClassName: standard
 ---
 
 apiVersion: v1

@@ -22,9 +22,9 @@ helm() {
   HTTPS_PROXY=localhost:8888 command helm "$@"
 }
 
-# unset kubeseal if it exist
-unset -f kubeseal 2>/dev/null
-
-kubeseal() {
-  HTTPS_PROXY=localhost:8888 command kubeseal "$@"
-}
+## unset kubeseal if it exist
+#unset -f kubeseal 2>/dev/null
+#
+#kubeseal() {
+#  HTTPS_PROXY=localhost:8888 command kubeseal "$@"
+#}
