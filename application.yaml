@@ -96,10 +96,10 @@ spec:
           operator:
             resources:
               limits:
-                cpu: 250m
-                memory: 512Gi
+                cpu: 500m
+                memory: 512Mi
               requests:
-                memory: 200Mi
+                memory: 512Mi
   destination:
     server: https://kubernetes.default.svc
     namespace: mongodb-operator
