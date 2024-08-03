@@ -4,8 +4,7 @@ metadata:
   name: homepage-config
 data:
   .env.production.local: |
-    TEST_KEY="true_one"
-    API_ENDPOINT="http://meow-api-service"
+    NEXT_PUBLIC_I18N_ENDPOINT="https://api.meowalien.com/i18n/"
 
 ---
 
@@ -27,7 +26,8 @@ spec:
     spec:
       containers:
       - name: homepage
-        image: asia-east1-docker.pkg.dev/homepage-431105/meow/homepage:28663bce
+#        image: asia-east1-docker.pkg.dev/homepage-431105/meow/homepage:28663bce
+        image: asia-east1-docker.pkg.dev/homepage-431105/meow/homepage:d27960dd
         imagePullPolicy: Always
         readinessProbe:
           httpGet:
