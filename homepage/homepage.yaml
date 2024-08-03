@@ -27,7 +27,7 @@ spec:
     spec:
       containers:
       - name: homepage
-        image: asia-east1-docker.pkg.dev/homepage-431105/meow/homepage:2960062f
+        image: asia-east1-docker.pkg.dev/homepage-431105/meow/homepage:28663bce
         imagePullPolicy: Always
         readinessProbe:
           httpGet:
