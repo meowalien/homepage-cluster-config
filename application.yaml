@@ -58,9 +58,6 @@ spec:
     targetRevision: HEAD
     path: sealed-secrets
     helm:
-#      parameters:
-#        - name: fullnameOverride
-#          value: sealed-secrets-controller
       values: |
         fullnameOverride: sealed-secrets-controller
         resources:
