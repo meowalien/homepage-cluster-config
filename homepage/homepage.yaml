@@ -64,7 +64,7 @@ spec:
     app: homepage
   ports:
     -
-      name: https-port
+      name: http-port
       port: 80
       protocol: TCP
       targetPort: 3000

@@ -26,15 +26,15 @@ spec:
           service:
             name: homepage-service
             port:
-              name: https-port
-#  - host: api.meowalien.com
-#    http:
-#      paths:
-#      - path: /*
-#        pathType: ImplementationSpecific
-#        backend:
-#          service:
-#            name: meow-api-service
-#            port:
-#              name: https-port
+              name: http-port
+  - host: api.meowalien.com
+    http:
+      paths:
+      - path: /i18n/*
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: i18n-service
+            port:
+              name: http-port
 

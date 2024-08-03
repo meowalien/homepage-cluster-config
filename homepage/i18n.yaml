@@ -1,0 +1,63 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: i18n-config
+data:
+  config.yaml: |
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: i18n-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: i18n
+
+  template:
+    metadata:
+      labels:
+        app: i18n
+
+    spec:
+      containers:
+        - name: i18n
+          image: asia-east1-docker.pkg.dev/toolbox-412706/meow/homapage-i18n:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 10
+            timeoutSeconds: 5
+          volumeMounts:
+            - name: config-volume
+              mountPath: /app/config.yaml
+              subPath: config.yaml
+
+      volumes:
+        - name: config-volume
+          configMap:
+            name: i18n-config
+      imagePullSecrets:
+        - name: gcp-artifact-registry
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: i18n-service
+spec:
+  selector:
+    app: i18n
+  ports:
+    - name: http-port
+      port: 80
+      protocol: TCP
+      targetPort: 8080
+
