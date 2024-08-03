@@ -23,11 +23,11 @@ operator:
   # Resources allocated to Operator Pod
   resources:
     limits:
-      cpu: 500m
-      memory: 512Mi
+      cpu: 1100m
+      memory: 1Gi
     requests:
       cpu: 500m
-      memory: 512Mi
+      memory: 200Mi
 
   # replicas deployed for the operator pod. Running 1 is optimal and suggested.
   replicas: 1
