@@ -58,9 +58,18 @@ spec:
     targetRevision: HEAD
     path: sealed-secrets
     helm:
-      parameters:
-        - name: fullnameOverride
-          value: sealed-secrets-controller
+#      parameters:
+#        - name: fullnameOverride
+#          value: sealed-secrets-controller
+      values: |
+        fullnameOverride: sealed-secrets-controller
+        resources:
+          requests:
+            cpu: "250m"
+            memory: "512Mi"
+          limits:
+            cpu: "250m"
+            memory: "512Mi"
   destination:
     server: https://kubernetes.default.svc
     namespace: sealed-secrets
