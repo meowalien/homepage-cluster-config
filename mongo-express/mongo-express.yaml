@@ -18,17 +18,17 @@ spec:
         ports:
         - containerPort: 8081
         env:
+        - name: ME_CONFIG_MONGODB_ENABLE_ADMIN
+          value: "true"
         - name: ME_CONFIG_MONGODB_ADMINUSERNAME
-          value: "admin"
+          value: "root"
         - name: ME_CONFIG_MONGODB_ADMINPASSWORD
           valueFrom:
             secretKeyRef:
               name: mongo-express-secret
               key: ME_CONFIG_MONGODB_ADMINPASSWORD
-        - name: ME_CONFIG_MONGODB_PORT
-          value: "27017"
         - name: ME_CONFIG_MONGODB_SERVER
-          value: "mongodb-cluster-svc.mongodb-cluster.svc.cluster.local"
+          value: "mongodb-cluster-0.mongodb-cluster-svc.mongodb-cluster.svc.cluster.local,mongodb-cluster-1.mongodb-cluster-svc.mongodb-cluster.svc.cluster.local,mongodb-cluster-2.mongodb-cluster-svc.mongodb-cluster.svc.cluster.local"
 ---
 apiVersion: v1
 kind: Service
