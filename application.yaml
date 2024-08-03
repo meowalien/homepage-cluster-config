@@ -94,11 +94,12 @@ spec:
     helm:
       values: |
         operator:
-          requests:
-            memory: "512Mi"
-          limits:
-            cpu: "500m"
-            memory: "512Mi"
+          resources:
+              limits:
+                cpu: 500m
+                memory: 512Mi
+              requests:
+                memory: 512Mi
   destination:
     server: https://kubernetes.default.svc
     namespace: mongodb-operator
