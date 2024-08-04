@@ -157,3 +157,26 @@ spec:
       prune: true
       selfHeal: true
   revisionHistoryLimit: 3
+
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: sshd
+  namespace: argocd
+spec:
+  project: default
+  source:
+      repoURL: git@github.com:meowalien/homepage-cluster-config.git
+      targetRevision: HEAD
+      path: sshd
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: sshd
+  syncPolicy:
+    syncOptions:
+    - CreateNamespace=true
+    automated:
+      prune: true
+      selfHeal: true
+  revisionHistoryLimit: 3
