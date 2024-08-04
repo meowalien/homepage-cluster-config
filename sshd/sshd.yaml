@@ -1,33 +1,3 @@
-# Configuration of the keys that can connect to the server.
-# You should add the public keys (usually ~/.ssh/id_rsa.pub) for each user/machine that can use this tunnel.
-# See docs around 'authorized_keys' for how this works.
-#apiVersion: v1
-#kind: ConfigMap
-#metadata:
-#  name: sshd
-#  labels:
-#    app: sshd
-#data:
-#  authorized_keys: |
-#    ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC7wemKmbW6s3bk8XSEEM3dCnSqzIrHhYuCpCguFJhKubCpBa/XYbRbCLtuw4uNMSNwOusiePd+9YkRrZl4G1+miG/eWY30GEXmK6Lf0ovhLGRQj5uRbSwsR775N6A+if8b6703UCeWaklcK9NSMEH0hqwhGBJMT+fq335V2mIzANTn588ae+6jgVBAUSD/xt9BusJPz7izQ1kTG2Q2Djd7CXW1uUXuuztZoHpL8Mec23kQPX/tzHeDg+vZaXdzPhUW22YH5paVDldW5+kBqWeyxjD30SV5yfPgM0pjrUWllhlfhd7lee17qQno/rlmGgahlpjhw7XhwDZ5VTWI7+8G0GqZ6AE8xC9Vw9aslaNqiGNL9Sj4yiOUPvNmgN1p7XlYGPTLYtDGvctzsGqIsM/8lUsTodtFmb0CTyE6uV5JYdjQyTyLnCTbB1dfV8AZZDixVj6Mpjv/9rJhvY2sevntpnqttozULYBLXotTEGLnycowp6qe3u+Nap178GoYjWM= jacky_li@Jackys-MacBook-Pro.local
-
-#---
-# An example LoadBalancer service.
-# On EKS or GKE this should automatically create a public hostname where sshd can be reached.
-# You can use something else like an Ingress if needed.
-#apiVersion: v1
-#kind: Service
-#metadata:
-#  name: sshd-lb
-#spec:
-#  type: LoadBalancer
-#  ports:
-#  - name: ssh
-#    port: 22
-#    targetPort: ssh
-#  selector:
-#    app: sshd
----
 # Standard service, can be used for an ingress or similar.
 apiVersion: v1
 kind: Service
