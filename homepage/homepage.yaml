@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: homepage-config
 data:
-  .env: |
+  .env.production: |
     NEXT_PUBLIC_AUTHORIZATION_ENDPOINT="https://api.meowalien.com/login"
     NEXT_PUBLIC_GOOGLE_OAUTH2_CLIENT_ID="90019900383-hrnd5ft427hfooa19671h29u5qt7gi3n.apps.googleusercontent.com"
 ---
@@ -45,8 +45,8 @@ spec:
             memory: "512Mi"
         volumeMounts:
           - name: config
-            mountPath: /app/.env
-            subPath: .env
+            mountPath: /app/.env.production
+            subPath: .env.production
       volumes:
         - name: config
           configMap:
