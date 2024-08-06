@@ -1,0 +1,113 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: homepage-authorization-config
+data:
+  config.yaml: |
+    db:
+      postgresql:
+        host: "postgres.postgresql.svc.cluster.local"
+        port: "5432"
+        user: "homepage-authorization"
+        password: "password"
+        dbname: "homepage"
+    server:
+      port: 8080
+    token:
+      privateKeyPath: "private_key.pem"
+      publicKeyPath: "public_key.pem"
+
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: homepage-authorization
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: homepage-authorization
+
+  template:
+    metadata:
+      labels:
+        app: homepage-authorization
+
+    spec:
+      containers:
+      - name: homepage-authorization
+        image: asia-east1-docker.pkg.dev/homepage-431105/meow/homepage-authorization:6e61749d
+        imagePullPolicy: Always
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 10
+          timeoutSeconds: 5
+        ports:
+          - containerPort: 8080
+        resources:
+          requests:
+            cpu: "250m"
+            memory: "512Mi"
+          limits:
+            cpu: "250m"
+            memory: "512Mi"
+        volumeMounts:
+          - name: google-oauth-credentials
+            mountPath: /app/credentials.json
+            subPath: credentials.json
+            readOnly: true
+          - name: public-key-volume
+            mountPath: /app/public_key.pem
+            subPath: public_key.pem
+            readOnly: true
+          - name: private-key-volume
+            mountPath: /app/private_key.pem
+            subPath: private_key.pem
+            readOnly: true
+          - name: config
+            mountPath: /app/config.yaml
+            subPath: config.yaml
+      volumes:
+        - name: google-oauth-credentials
+          secret:
+              secretName: google-oauth-credentials
+              items:
+                - key: credentials.json
+                  path: credentials.json
+        - name: public-key-volume
+          secret:
+            secretName: public-key
+            items:
+              - key: public_key.pem
+                path: public_key.pem
+        - name: private-key-volume
+          secret:
+            secretName: private-key
+            items:
+              - key: private_key.pem
+                path: private_key.pem
+
+        - name: config
+          configMap:
+            name: homepage-authorization-config
+      imagePullSecrets:
+        - name: gcp-artifact-registry
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: homepage-authorization-service
+spec:
+  selector:
+    app: homepage-authorization
+  ports:
+    -
+      name: http-port
+      port: 80
+      protocol: TCP
+      targetPort: 8080
+

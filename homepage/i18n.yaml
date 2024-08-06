@@ -7,6 +7,8 @@ data:
     mongodb:
       uri: "mongodb://homepage-i18n:password@mongodb-cluster-0.mongodb-cluster-svc.mongodb-cluster.svc.cluster.local:27017,mongodb-cluster-1.mongodb-cluster-svc.mongodb-cluster.local:27017,mongodb-cluster-2.mongodb-cluster-svc.mongodb-cluster.svc.cluster.local:27017"
       database: "i18n"
+    token:
+      publicKeyPath: "public_key.pem"
 
 ---
 
@@ -28,7 +30,7 @@ spec:
     spec:
       containers:
         - name: i18n
-          image: asia-east1-docker.pkg.dev/homepage-431105/meow/homapage-i18n:abce0562
+          image: asia-east1-docker.pkg.dev/homepage-431105/meow/homapage-i18n:69138968
           imagePullPolicy: Always
           ports:
             - containerPort: 8080

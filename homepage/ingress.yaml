@@ -37,4 +37,11 @@ spec:
             name: i18n-service
             port:
               name: http-port
+      - path: /login/*
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: homepage-authorization-service
+            port:
+              name: http-port
 

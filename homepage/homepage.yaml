@@ -4,8 +4,9 @@ metadata:
   name: homepage-config
 data:
   .env.production.local: |
-    NEXT_PUBLIC_I18N_ENDPOINT="https://api.meowalien.com/i18n/"
-
+    NEXT_PUBLIC_I18N_ENDPOINT="https://api.meowalien.com/i18n"
+    NEXT_PUBLIC_AUTHORIZATION_ENDPOINT="https://api.meowalien.com/login"
+    NEXT_PUBLIC_GOOGLE_OAUTH2_CLIENT_ID="90019900383-hrnd5ft427hfooa19671h29u5qt7gi3n.apps.googleusercontent.com"
 ---
 
 apiVersion: apps/v1
@@ -26,8 +27,7 @@ spec:
     spec:
       containers:
       - name: homepage
-#        image: asia-east1-docker.pkg.dev/homepage-431105/meow/homepage:28663bce
-        image: asia-east1-docker.pkg.dev/homepage-431105/meow/homepage:6b97f6e7
+        image: asia-east1-docker.pkg.dev/homepage-431105/meow/homepage:dd89153b
         imagePullPolicy: Always
         readinessProbe:
           httpGet:
