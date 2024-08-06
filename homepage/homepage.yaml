@@ -3,8 +3,7 @@ kind: ConfigMap
 metadata:
   name: homepage-config
 data:
-  .env.production.local: |
-    NEXT_PUBLIC_I18N_ENDPOINT="https://api.meowalien.com/i18n"
+  .env: |
     NEXT_PUBLIC_AUTHORIZATION_ENDPOINT="https://api.meowalien.com/login"
     NEXT_PUBLIC_GOOGLE_OAUTH2_CLIENT_ID="90019900383-hrnd5ft427hfooa19671h29u5qt7gi3n.apps.googleusercontent.com"
 ---
@@ -27,7 +26,7 @@ spec:
     spec:
       containers:
       - name: homepage
-        image: asia-east1-docker.pkg.dev/homepage-431105/meow/homepage:dd89153b
+        image: asia-east1-docker.pkg.dev/homepage-431105/meow/homepage:42793e62
         imagePullPolicy: Always
         readinessProbe:
           httpGet:
@@ -46,8 +45,8 @@ spec:
             memory: "512Mi"
         volumeMounts:
           - name: config
-            mountPath: /app/.env.production.local
-            subPath: .env.production.local
+            mountPath: /app/.env
+            subPath: .env
       volumes:
         - name: config
           configMap:
