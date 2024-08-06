@@ -16,6 +16,8 @@ data:
     token:
       privateKeyPath: "private_key.pem"
       publicKeyPath: "public_key.pem"
+    oauth:
+      oauthCredentials: "credentials.json"
 
 
 ---
