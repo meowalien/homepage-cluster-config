@@ -41,6 +41,10 @@ spec:
             initialDelaySeconds: 10
             timeoutSeconds: 5
           volumeMounts:
+            - name: public-key-volume
+              mountPath: /app/public_key.pem
+              subPath: public_key.pem
+              readOnly: true
             - name: config-volume
               mountPath: /app/config.yaml
               subPath: config.yaml
@@ -49,6 +53,12 @@ spec:
         - name: config-volume
           configMap:
             name: i18n-config
+        - name: public-key-volume
+          secret:
+            secretName: public-key
+            items:
+              - key: public_key.pem
+                path: public_key.pem
       imagePullSecrets:
         - name: gcp-artifact-registry
 ---
