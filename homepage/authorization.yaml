@@ -40,7 +40,7 @@ spec:
     spec:
       containers:
       - name: homepage-authorization
-        image: asia-east1-docker.pkg.dev/homepage-431105/meow/homepage-authorization:6e61749d
+        image: asia-east1-docker.pkg.dev/homepage-431105/meow/homepage-authorization:b0c54a25
         imagePullPolicy: Always
         readinessProbe:
           httpGet:
