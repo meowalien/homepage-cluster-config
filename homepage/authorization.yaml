@@ -18,6 +18,21 @@ data:
       publicKeyPath: "public_key.pem"
     oauth:
       oauthCredentials: "credentials.json"
+    
+    log:
+      level: "debug"
+    
+    cookies:
+      - name: "token"
+        path: "/"
+        domain: ".meowalien.com"
+        secure: true
+        http_only: true
+      - name: "token"
+        path: "/"
+        domain: "localhost"
+        secure: false
+        http_only: true
 
 
 ---
