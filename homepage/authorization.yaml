@@ -19,9 +19,6 @@ data:
     oauth:
       oauthCredentials: "credentials.json"
     
-    log:
-      level: "debug"
-    
     cookies:
       - name: "token"
         path: "/"
@@ -55,7 +52,7 @@ spec:
     spec:
       containers:
       - name: homepage-authorization
-        image: asia-east1-docker.pkg.dev/homepage-431105/meow/homepage-authorization:679526eb
+        image: asia-east1-docker.pkg.dev/homepage-431105/meow/homepage-authorization:7ef436d6
         imagePullPolicy: Always
         readinessProbe:
           httpGet:

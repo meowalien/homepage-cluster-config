@@ -18,7 +18,7 @@ while ! nc -z localhost 2222; do
 done
 
 # Run sshuttle once port 2222 is available
-sshuttle --dns -r tunnel@localhost:2222 34.118.224.0/20 10.53.0.0/17 192.168.0.0/20 &
-
+sshuttle --dns -r tunnel@localhost:2222 34.118.224.0/20 10.53.0.0/17 &
+# 192.168.0.0/20
 # Wait for all background processes to finish
 wait
