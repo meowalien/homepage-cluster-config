@@ -37,7 +37,7 @@ spec:
             name: i18n-service
             port:
               name: http-port
-      - path: /login/*
+      - path: /auth/*
         pathType: ImplementationSpecific
         backend:
           service:

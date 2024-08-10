@@ -1,1 +1,0 @@
-gcloud compute ssh bastion-vm --tunnel-through-iap
