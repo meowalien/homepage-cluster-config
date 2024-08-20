@@ -43,7 +43,7 @@ kind: MongoDBCommunity
 metadata:
   name: mongodb-cluster
 spec:
-  members: 3
+  members: 1
   type: ReplicaSet
   version: "7.0.7"
   security:
@@ -69,26 +69,26 @@ spec:
           containers:
             - name: mongod
               resources:
-                limits:
-                  cpu: "0.2"
-                  memory: 250M
+#                limits:
+#                  cpu: "200m"
+#                  memory: "250Mi"
                 requests:
-                  cpu: "0.2"
-                  memory: 200M
+                  cpu: "200m"
+                  memory: "200Mi"
             - name: mongodb-agent
               resources:
-                limits:
-                  cpu: "0.2"
-                  memory: 250M
+#                limits:
+#                  cpu: "200m"
+#                  memory: "250Mi"
                 requests:
-                  cpu: "0.2"
-                  memory: 200M
-          initContainers:
-            - name: mongodb-agent-readinessprobe
-              resources:
-                limits:
-                  cpu: "2"
-                  memory: 200M
-                requests:
-                  cpu: "1"
-                  memory: 100M
+                  cpu: "200m"
+                  memory: "200Mi"
+#          initContainers:
+#            - name: mongodb-agent-readinessprobe
+#              resources:
+#                limits:
+#                  cpu: "2"
+#                  memory: 200M
+#                requests:
+#                  cpu: "1"
+#                  memory: 100M
