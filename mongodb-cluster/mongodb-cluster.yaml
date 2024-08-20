@@ -60,3 +60,9 @@ spec:
       scramCredentialsSecretName: my-scram
   additionalMongodConfig:
     storage.wiredTiger.engineConfig.journalCompressor: zlib
+  podSpec:
+    resources:
+      requests:
+        memory: "1Gi"
+        cpu: "200m"
+
