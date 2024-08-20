@@ -64,6 +64,10 @@ spec:
             - name: http
               containerPort: 80
               protocol: TCP
+          resources:
+            requests:
+              cpu: "10m"
+              memory: "0.4Gi"
           volumeMounts:
             - name: pgadmin-config
               mountPath: /pgadmin4/servers.json
