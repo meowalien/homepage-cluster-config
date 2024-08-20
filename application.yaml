@@ -110,8 +110,29 @@ spec:
       selfHeal: true
   revisionHistoryLimit: 3
 
+---
 
-
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: postgresql
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: git@github.com:meowalien/homepage-cluster-config.git
+    targetRevision: HEAD
+    path: postgresql
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: postgresql
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated:
+      prune: true
+      selfHeal: true
+  revisionHistoryLimit: 3
 
 
 
@@ -143,29 +164,6 @@ spec:
 #      selfHeal: true
 #  revisionHistoryLimit: 3
 #
-#---
-#
-#apiVersion: argoproj.io/v1alpha1
-#kind: Application
-#metadata:
-#  name: postgresql
-#  namespace: argocd
-#spec:
-#  project: default
-#  source:
-#    repoURL: git@github.com:meowalien/homepage-cluster-config.git
-#    targetRevision: HEAD
-#    path: postgresql
-#  destination:
-#    server: https://kubernetes.default.svc
-#    namespace: postgresql
-#  syncPolicy:
-#    syncOptions:
-#      - CreateNamespace=true
-#    automated:
-#      prune: true
-#      selfHeal: true
-#  revisionHistoryLimit: 3
 #
 #
 #
