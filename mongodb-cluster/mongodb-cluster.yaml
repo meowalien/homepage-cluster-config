@@ -63,6 +63,6 @@ spec:
   podSpec:
     resources:
       requests:
-        memory: "1Gi"
+        memory: "400Mi"
         cpu: "200m"
 
