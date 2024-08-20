@@ -43,7 +43,7 @@ kind: MongoDBCommunity
 metadata:
   name: mongodb-cluster
 spec:
-  members: 1
+  members: 3
   type: ReplicaSet
   version: "7.0.7"
   security:
