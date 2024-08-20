@@ -58,9 +58,5 @@ spec:
         - name: root
           db: admin
       scramCredentialsSecretName: my-scram
-  resources:
-    requests:
-      memory: "1Gi"
-      cpu: "200m"
   additionalMongodConfig:
     storage.wiredTiger.engineConfig.journalCompressor: zlib
