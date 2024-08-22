@@ -11,10 +11,11 @@ spec:
 
 ---
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: docker-registry
 spec:
+  serviceName: "docker-registry"
   replicas: 1
   selector:
     matchLabels:
@@ -29,26 +30,31 @@ spec:
         image: registry:2
         ports:
         - containerPort: 5000
+          name: http
         volumeMounts:
         - name: registry-storage
           mountPath: /var/lib/registry
         env:
         - name: REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY
           value: /var/lib/registry
-      volumes:
-      - name: registry-storage
-        persistentVolumeClaim:
-          claimName: registry-pvc
+  volumeClaimTemplates:
+  - metadata:
+      name: registry-storage
+    spec:
+      accessModes: ["ReadWriteOnce"]
+      resources:
+        requests:
+          storage: 10Gi
 
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: docker-registry-service
+  name: docker-registry
 spec:
+  ports:
+  - port: 5000
+    name: http
+  clusterIP: None
   selector:
     app: docker-registry
-  ports:
-    - protocol: TCP
-      port: 5000
-      targetPort: 5000
