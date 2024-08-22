@@ -8,7 +8,7 @@ spec:
   project: default
   source:
     repoURL: git@github.com:meowalien/homepage-cluster-config.git
-    targetRevision: HEAD
+    targetRevision: minikube
     path: sealed-secrets
     helm:
       values: |
@@ -17,9 +17,6 @@ spec:
           requests:
             cpu: "5m"
             memory: "30Mi"
-#          limits:
-#            cpu: "250m"
-#            memory: "512Mi"
   destination:
     server: https://kubernetes.default.svc
     namespace: sealed-secrets
@@ -30,31 +27,53 @@ spec:
       prune: true
       selfHeal: true
   revisionHistoryLimit: 3
-
 ---
-
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: sshd
+  name: docker-registry
   namespace: argocd
 spec:
   project: default
   source:
-      repoURL: git@github.com:meowalien/homepage-cluster-config.git
-      targetRevision: HEAD
-      path: sshd
+    repoURL: git@github.com:meowalien/homepage-cluster-config.git
+    targetRevision: minikube
+    path: docker-registry
   destination:
     server: https://kubernetes.default.svc
-    namespace: sshd
+    namespace: docker-registry
   syncPolicy:
     syncOptions:
-    - CreateNamespace=true
+      - CreateNamespace=true
     automated:
       prune: true
       selfHeal: true
   revisionHistoryLimit: 3
 
+#---
+#
+#apiVersion: argoproj.io/v1alpha1
+#kind: Application
+#metadata:
+#  name: sshd
+#  namespace: argocd
+#spec:
+#  project: default
+#  source:
+#      repoURL: git@github.com:meowalien/homepage-cluster-config.git
+#      targetRevision: minikube
+#      path: sshd
+#  destination:
+#    server: https://kubernetes.default.svc
+#    namespace: sshd
+#  syncPolicy:
+#    syncOptions:
+#    - CreateNamespace=true
+#    automated:
+#      prune: true
+#      selfHeal: true
+#  revisionHistoryLimit: 3
+#
 #---
 #
 #apiVersion: argoproj.io/v1alpha1
@@ -66,7 +85,7 @@ spec:
 #  project: default
 #  source:
 #    repoURL: git@github.com:meowalien/homepage-cluster-config.git
-#    targetRevision: HEAD
+#    targetRevision: minikube
 #    path: mongodb-operator
 #    helm:
 #      values: |
@@ -97,7 +116,7 @@ spec:
 #  project: default
 #  source:
 #      repoURL: git@github.com:meowalien/homepage-cluster-config.git
-#      targetRevision: HEAD
+#      targetRevision: minikube
 #      path: mongodb-cluster
 #  destination:
 #    server: https://kubernetes.default.svc
@@ -121,7 +140,7 @@ spec:
 #  project: default
 #  source:
 #    repoURL: git@github.com:meowalien/homepage-cluster-config.git
-#    targetRevision: HEAD
+#    targetRevision: minikube
 #    path: postgresql
 #  destination:
 #    server: https://kubernetes.default.svc
@@ -144,7 +163,7 @@ spec:
 #  project: default
 #  source:
 #    repoURL: git@github.com:meowalien/homepage-cluster-config.git
-#    targetRevision: HEAD
+#    targetRevision: minikube
 #    path: homepage
 #  destination:
 #    server: https://kubernetes.default.svc
@@ -156,17 +175,6 @@ spec:
 #      prune: true
 #      selfHeal: true
 #  revisionHistoryLimit: 3
-
-
-
-
-
-
-
-#
-#
-#
-#
 #
 #---
 #
@@ -179,7 +187,7 @@ spec:
 #  project: default
 #  source:
 #    repoURL: git@github.com:meowalien/homepage-cluster-config.git
-#    targetRevision: HEAD
+#    targetRevision: minikube
 #    path: rabbitmq-cluster-operator
 #    helm:
 #      values: |
@@ -223,7 +231,7 @@ spec:
 #  project: default
 #  source:
 #    repoURL: git@github.com:meowalien/homepage-cluster-config.git
-#    targetRevision: HEAD
+#    targetRevision: minikube
 #    path: rabbitmq-cluster
 #  destination:
 #    server: https://kubernetes.default.svc
