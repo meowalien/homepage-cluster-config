@@ -5,9 +5,9 @@ metadata:
   name: sshd
 spec:
   ports:
-  - name: ssh
-    port: 22
-    targetPort: ssh
+    - name: ssh
+      port: 22
+      targetPort: ssh
   selector:
     app: sshd
 ---
@@ -35,54 +35,59 @@ spec:
         app: sshd
     spec:
       containers:
-      - name: sshd
-        # This image is based on https://github.com/linuxserver/docker-openssh-server
-        # The only modification is the installation of python3, as required by sshuttle.
-        # See docker/Dockerfile.
-        image: linuxserver/openssh-server:latest
-        # This manual command ensures that authorized_keys is synced every time.
-        # Otherwise the base image ignores new keys if the file already exists.
-        command:
-        - /bin/sh
-        - -c
-        - apk update && apk add python3 && rm -f /config/.ssh/authorized_keys && /init
-        # The following envvars configure the openssh daemon. A list of settings can be found here:
-        # https://github.com/linuxserver/docker-openssh-server#parameters
-        env:
-        # OPTIONAL: You may customize the username to use when connecting to this ssh server.
-        #           All users will access the cluster via this username.
-        - name: USER_NAME
-          value: tunnel
-        # Where the configmap data is located. This is copied into /config/.ssh/authorized_keys on pod start.
-        - name: PUBLIC_KEY_FILE
-          value: /keys-ro/authorized_keys
-        # After init, the sshd process will run as nobody:nobody (on port 2222)
-        - name: PUID
-          value: "65534" # uid:nobody
-        - name: PGID
-          value: "65534" # gid:nobody
-        volumeMounts:
-        - name: keys
-          mountPath: /keys-ro
-          readOnly: true
-        - name: data
-          mountPath: /config
-        ports:
-        - name: ssh
-          containerPort: 2222
-        readinessProbe:
-          tcpSocket:
-            port: 2222
+        - name: sshd
+          # This image is based on https://github.com/linuxserver/docker-openssh-server
+          # The only modification is the installation of python3, as required by sshuttle.
+          # See docker/Dockerfile.
+          image: linuxserver/openssh-server:latest
+          # This manual command ensures that authorized_keys is synced every time.
+          # Otherwise the base image ignores new keys if the file already exists.
+          command:
+            - /bin/sh
+            - -c
+            - apk update && apk add python3 && rm -f /config/.ssh/authorized_keys && /init
+          # The following envvars configure the openssh daemon. A list of settings can be found here:
+          # https://github.com/linuxserver/docker-openssh-server#parameters
+          env:
+            # OPTIONAL: You may customize the username to use when connecting to this ssh server.
+            #           All users will access the cluster via this username.
+            - name: USER_NAME
+              value: tunnel
+            # Where the configmap data is located. This is copied into /config/.ssh/authorized_keys on pod start.
+            - name: PUBLIC_KEY_FILE
+              value: /keys-ro/authorized_keys
+            # After init, the sshd process will run as nobody:nobody (on port 2222)
+            - name: PUID
+              value: "65534" # uid:nobody
+            - name: PGID
+              value: "65534" # gid:nobody
+          resources:
+            requests:
+              cpu: 20m
+              memory: 40Mi
+
+          volumeMounts:
+            - name: keys
+              mountPath: /keys-ro
+              readOnly: true
+            - name: data
+              mountPath: /config
+          ports:
+            - name: ssh
+              containerPort: 2222
+          readinessProbe:
+            tcpSocket:
+              port: 2222
       volumes:
-      - name: keys
-        secret:
-          secretName: sshd-authorized-keys
+        - name: keys
+          secret:
+            secretName: sshd-authorized-keys
   volumeClaimTemplates:
-  - metadata:
-      name: data
-    spec:
-      accessModes:
-      - ReadWriteOnce
-      resources:
-        requests:
-          storage: 100Mi
+    - metadata:
+        name: data
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 100Mi
