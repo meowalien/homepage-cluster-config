@@ -50,32 +50,31 @@ spec:
       selfHeal: true
   revisionHistoryLimit: 3
 
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: mongodb
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: git@github.com:meowalien/homepage-cluster-config.git
+    targetRevision: minikube
+    path: mongodb
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: mongodb
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated:
+      prune: true
+      selfHeal: true
+  revisionHistoryLimit: 3
+
+
 #---
-#
-#apiVersion: argoproj.io/v1alpha1
-#kind: Application
-#metadata:
-#  name: sshd
-#  namespace: argocd
-#spec:
-#  project: default
-#  source:
-#      repoURL: git@github.com:meowalien/homepage-cluster-config.git
-#      targetRevision: minikube
-#      path: sshd
-#  destination:
-#    server: https://kubernetes.default.svc
-#    namespace: sshd
-#  syncPolicy:
-#    syncOptions:
-#    - CreateNamespace=true
-#    automated:
-#      prune: true
-#      selfHeal: true
-#  revisionHistoryLimit: 3
-#
-#---
-#
 #apiVersion: argoproj.io/v1alpha1
 #kind: Application
 #metadata:
@@ -128,6 +127,31 @@ spec:
 #      prune: true
 #      selfHeal: true
 #  revisionHistoryLimit: 3
+
+#---
+#
+#apiVersion: argoproj.io/v1alpha1
+#kind: Application
+#metadata:
+#  name: sshd
+#  namespace: argocd
+#spec:
+#  project: default
+#  source:
+#      repoURL: git@github.com:meowalien/homepage-cluster-config.git
+#      targetRevision: minikube
+#      path: sshd
+#  destination:
+#    server: https://kubernetes.default.svc
+#    namespace: sshd
+#  syncPolicy:
+#    syncOptions:
+#    - CreateNamespace=true
+#    automated:
+#      prune: true
+#      selfHeal: true
+#  revisionHistoryLimit: 3
+#
 #
 #---
 #
