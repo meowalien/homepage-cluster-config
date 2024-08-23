@@ -17,7 +17,7 @@ data:
         }
       }
     }
-  PGADMIN_DEFAULT_EMAIL: "admin"
+  PGADMIN_DEFAULT_EMAIL: "a.meowalien@gmail.com"
   PGADMIN_DEFAULT_PASSWORD: "password"
 ---
 apiVersion: apps/v1
