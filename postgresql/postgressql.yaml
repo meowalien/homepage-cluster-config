@@ -7,23 +7,23 @@ metadata:
 data:
   POSTGRES_USER: "admin"  # Specify the default username for PostgreSQL.
   PGDATA: "/var/lib/postgresql/data/pgdata"  # Specify the data directory for PostgreSQL.
-
+  POSTGRES_PASSWORD: "password"  # Specify the default password for PostgreSQL.
 ---
 
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: postgres
+  name: postgressql
 spec:
   serviceName: "postgres"
   replicas: 1
   selector:
     matchLabels:
-      app: postgres
+      app: postgressql
   template:
     metadata:
       labels:
-        app: postgres
+        app: postgressql
     spec:
       containers:
         - name: postgres
@@ -34,12 +34,20 @@ spec:
           envFrom:
             - configMapRef:
                 name: postgres-config
-          env:
-            - name: POSTGRES_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: postgres-secret
-                  key: POSTGRES_PASSWORD
+          resources:
+            requests:
+              cpu: "10m"
+              memory: "150Mi"
+#          env:
+#            - name: POSTGRES_PASSWORD
+#              valueFrom:
+#                configMapKeyRef:
+#                  name: postgres-config
+#                  key: POSTGRES_PASSWORD
+#              valueFrom:
+#                secretKeyRef:
+#                  name: postgres-secret
+#                  key: POSTGRES_PASSWORD
           volumeMounts:
             - mountPath: /var/lib/postgresql/data
               name: postgres-data
@@ -50,7 +58,7 @@ spec:
         accessModes: [ "ReadWriteOnce" ]
         resources:
           requests:
-            storage: 200Gi
+            storage: 20Gi
         storageClassName: standard
 
 ---
@@ -58,11 +66,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: postgres
+  name: postgressql-service
   labels:
-    app: postgres
+    app: postgressql
 spec:
   ports:
     - port: 5432
   selector:
-    app: postgres
+    app: postgressql

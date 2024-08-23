@@ -11,13 +11,14 @@ data:
           "Group": "Servers",
           "Port": 5432,
           "Username": "admin",
-          "Host": "postgres",
+          "Host": "postgressql-service",
           "SSLMode": "prefer",
           "MaintenanceDB": "postgres"
         }
       }
     }
-  PGADMIN_DEFAULT_EMAIL: "a.meowalien@gmail.com"
+  PGADMIN_DEFAULT_EMAIL: "admin"
+  PGADMIN_DEFAULT_PASSWORD: "password"
 ---
 apiVersion: apps/v1
 kind: StatefulSet
@@ -57,9 +58,13 @@ spec:
                   key: PGADMIN_DEFAULT_EMAIL
             - name: PGADMIN_DEFAULT_PASSWORD
               valueFrom:
-                secretKeyRef:
-                  name: pgadmin-secret
-                  key: pgadmin-password
+                configMapKeyRef:
+                  name: pgadmin-config
+                  key: PGADMIN_DEFAULT_PASSWORD
+#              valueFrom:
+#                secretKeyRef:
+#                  name: pgadmin-secret
+#                  key: pgadmin-password
           ports:
             - name: http
               containerPort: 80
