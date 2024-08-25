@@ -1,1 +1,0 @@
-kubectl create secret generic <secretNAme> --from-literal=<field>='<value>' -o yaml --dry-run=client

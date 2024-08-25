@@ -30,7 +30,7 @@ spec:
     spec:
       containers:
         - name: i18n
-          image: asia-east1-docker.pkg.dev/homepage-431105/meow/homapage-i18n:f6954c7c
+          image: docker-registry.docker-registry.svc.cluster.local:5000/homapage-i18n:f6954c7
           imagePullPolicy: Always
           ports:
             - containerPort: 8080

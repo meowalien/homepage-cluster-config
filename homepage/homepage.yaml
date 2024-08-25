@@ -1,71 +1,71 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: homepage-config
-data:
-  .env.production: |
-    PRIVATE_ENV="this is private"
-#    NEXT_PUBLIC_AUTHORIZATION_ENDPOINT="https://api.meowalien.com/login"
-#    NEXT_PUBLIC_GOOGLE_OAUTH2_CLIENT_ID="90019900383-hrnd5ft427hfooa19671h29u5qt7gi3n.apps.googleusercontent.com"
----
-
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: homepage
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: homepage
-
-  template:
-    metadata:
-      labels:
-        app: homepage
-
-    spec:
-      containers:
-      - name: homepage
-        image: asia-east1-docker.pkg.dev/homepage-431105/meow/homepage:a2f0c0b0
-        imagePullPolicy: Always
-        readinessProbe:
-          httpGet:
-            path: /api/health
-            port: 3000
-          initialDelaySeconds: 10
-          timeoutSeconds: 5
-        ports:
-          - containerPort: 3000
-        resources:
-          requests:
-            cpu: "250m"
-            memory: "512Mi"
-          limits:
-            cpu: "250m"
-            memory: "512Mi"
-        volumeMounts:
-          - name: config
-            mountPath: /app/.env.production
-            subPath: .env.production
-      volumes:
-        - name: config
-          configMap:
-            name: homepage-config
-      imagePullSecrets:
-        - name: gcp-artifact-registry
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: homepage-service
-spec:
-  selector:
-    app: homepage
-  ports:
-    -
-      name: http-port
-      port: 80
-      protocol: TCP
-      targetPort: 3000
-
+#apiVersion: v1
+#kind: ConfigMap
+#metadata:
+#  name: homepage-config
+#data:
+#  .env.production: |
+#    PRIVATE_ENV="this is private"
+##    NEXT_PUBLIC_AUTHORIZATION_ENDPOINT="https://api.meowalien.com/login"
+##    NEXT_PUBLIC_GOOGLE_OAUTH2_CLIENT_ID="90019900383-hrnd5ft427hfooa19671h29u5qt7gi3n.apps.googleusercontent.com"
+#---
+#
+#apiVersion: apps/v1
+#kind: Deployment
+#metadata:
+#  name: homepage
+#spec:
+#  replicas: 1
+#  selector:
+#    matchLabels:
+#      app: homepage
+#
+#  template:
+#    metadata:
+#      labels:
+#        app: homepage
+#
+#    spec:
+#      containers:
+#      - name: homepage
+#        image: asia-east1-docker.pkg.dev/homepage-431105/meow/homepage:a2f0c0b0
+#        imagePullPolicy: Always
+#        readinessProbe:
+#          httpGet:
+#            path: /api/health
+#            port: 3000
+#          initialDelaySeconds: 10
+#          timeoutSeconds: 5
+#        ports:
+#          - containerPort: 3000
+#        resources:
+#          requests:
+#            cpu: "250m"
+#            memory: "512Mi"
+#          limits:
+#            cpu: "250m"
+#            memory: "512Mi"
+#        volumeMounts:
+#          - name: config
+#            mountPath: /app/.env.production
+#            subPath: .env.production
+#      volumes:
+#        - name: config
+#          configMap:
+#            name: homepage-config
+#      imagePullSecrets:
+#        - name: gcp-artifact-registry
+#---
+#apiVersion: v1
+#kind: Service
+#metadata:
+#  name: homepage-service
+#spec:
+#  selector:
+#    app: homepage
+#  ports:
+#    -
+#      name: http-port
+#      port: 80
+#      protocol: TCP
+#      targetPort: 3000
+#
