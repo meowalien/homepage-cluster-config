@@ -63,8 +63,8 @@ spec:
             items:
               - key: public_key.pem
                 path: public_key.pem
-      imagePullSecrets:
-        - name: gcp-artifact-registry
+#      imagePullSecrets:
+#        - name: gcp-artifact-registry
 ---
 
 apiVersion: v1
