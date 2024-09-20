@@ -1,3 +1,3 @@
 #!/bin/bash
 
-minikube stop && kubectl kubevpn quit
+kubevpn quit && minikube stop && minikube delete
