@@ -1,104 +1,103 @@
-
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: sealed-secrets
-  namespace: argocd
-spec:
-  project: default
-  source:
-    repoURL: git@github.com:meowalien/homepage-cluster-config.git
-    targetRevision: minikube
-    path: sealed-secrets
-    helm:
-      values: |
-        fullnameOverride: sealed-secrets-controller
-        resources:
-          requests:
-            cpu: "5m"
-            memory: "30Mi"
-  destination:
-    server: https://kubernetes.default.svc
-    namespace: sealed-secrets
-  syncPolicy:
-    syncOptions:
-      - CreateNamespace=true
-    automated:
-      prune: true
-      selfHeal: true
-  revisionHistoryLimit: 3
----
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: docker-registry
-  namespace: argocd
-spec:
-  project: default
-  source:
-    repoURL: git@github.com:meowalien/homepage-cluster-config.git
-    targetRevision: minikube
-    path: docker-registry
-  destination:
-    server: https://kubernetes.default.svc
-    namespace: docker-registry
-  syncPolicy:
-    syncOptions:
-      - CreateNamespace=true
-    automated:
-      prune: true
-      selfHeal: true
-  revisionHistoryLimit: 3
-
----
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: mongodb
-  namespace: argocd
-spec:
-  project: default
-  source:
-    repoURL: git@github.com:meowalien/homepage-cluster-config.git
-    targetRevision: minikube
-    path: mongodb
-  destination:
-    server: https://kubernetes.default.svc
-    namespace: mongodb
-  syncPolicy:
-    syncOptions:
-      - CreateNamespace=true
-    automated:
-      prune: true
-      selfHeal: true
-  revisionHistoryLimit: 3
-
----
-
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: postgresql
-  namespace: argocd
-spec:
-  project: default
-  source:
-    repoURL: git@github.com:meowalien/homepage-cluster-config.git
-    targetRevision: minikube
-    path: postgresql
-  destination:
-    server: https://kubernetes.default.svc
-    namespace: postgresql
-  syncPolicy:
-    syncOptions:
-      - CreateNamespace=true
-    automated:
-      prune: true
-      selfHeal: true
-  revisionHistoryLimit: 3
-
-
----
+#apiVersion: argoproj.io/v1alpha1
+#kind: Application
+#metadata:
+#  name: sealed-secrets
+#  namespace: argocd
+#spec:
+#  project: default
+#  source:
+#    repoURL: git@github.com:meowalien/homepage-cluster-config.git
+#    targetRevision: minikube
+#    path: sealed-secrets
+#    helm:
+#      values: |
+#        fullnameOverride: sealed-secrets-controller
+#        resources:
+#          requests:
+#            cpu: "5m"
+#            memory: "30Mi"
+#  destination:
+#    server: https://kubernetes.default.svc
+#    namespace: sealed-secrets
+#  syncPolicy:
+#    syncOptions:
+#      - CreateNamespace=true
+#    automated:
+#      prune: true
+#      selfHeal: true
+#  revisionHistoryLimit: 3
+#---
+#apiVersion: argoproj.io/v1alpha1
+#kind: Application
+#metadata:
+#  name: docker-registry
+#  namespace: argocd
+#spec:
+#  project: default
+#  source:
+#    repoURL: git@github.com:meowalien/homepage-cluster-config.git
+#    targetRevision: minikube
+#    path: docker-registry
+#  destination:
+#    server: https://kubernetes.default.svc
+#    namespace: docker-registry
+#  syncPolicy:
+#    syncOptions:
+#      - CreateNamespace=true
+#    automated:
+#      prune: true
+#      selfHeal: true
+#  revisionHistoryLimit: 3
+#
+#---
+#apiVersion: argoproj.io/v1alpha1
+#kind: Application
+#metadata:
+#  name: mongodb
+#  namespace: argocd
+#spec:
+#  project: default
+#  source:
+#    repoURL: git@github.com:meowalien/homepage-cluster-config.git
+#    targetRevision: minikube
+#    path: mongodb
+#  destination:
+#    server: https://kubernetes.default.svc
+#    namespace: mongodb
+#  syncPolicy:
+#    syncOptions:
+#      - CreateNamespace=true
+#    automated:
+#      prune: true
+#      selfHeal: true
+#  revisionHistoryLimit: 3
+#
+#---
+#
+#apiVersion: argoproj.io/v1alpha1
+#kind: Application
+#metadata:
+#  name: postgresql
+#  namespace: argocd
+#spec:
+#  project: default
+#  source:
+#    repoURL: git@github.com:meowalien/homepage-cluster-config.git
+#    targetRevision: minikube
+#    path: postgresql
+#  destination:
+#    server: https://kubernetes.default.svc
+#    namespace: postgresql
+#  syncPolicy:
+#    syncOptions:
+#      - CreateNamespace=true
+#    automated:
+#      prune: true
+#      selfHeal: true
+#  revisionHistoryLimit: 3
+#
+#
+#---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -107,7 +106,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: git@github.com:meowalien/homepage-cluster-config.git
+    repoURL: https://github.com/meowalien/homepage-cluster-config.git
     targetRevision: minikube
     path: homepage
   destination:

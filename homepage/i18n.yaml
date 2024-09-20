@@ -6,9 +6,27 @@ data:
   config.yaml: |
     mongodb:
       uri: "mongodb://admin:password@mongodb-server.mongodb.svc.cluster.local:27017"
-      database: "i18n"
+    server:
+      port: 8081
     token:
       publicKeyPath: "public_key.pem"
+    log:
+      level: "debug"
+    
+    cors:
+      allowedOrigins:
+        - "http://localhost:3000"
+        - "https://meowalien.com"
+      allowedMethods:
+        - "GET"
+        - "POST"
+        - "PUT"
+        - "DELETE"
+      allowedHeaders:
+        - "Content-Type"
+        - "Authorization"
+      allowCredentials: true
+      maxAge: 300
 
 ---
 
@@ -30,7 +48,7 @@ spec:
     spec:
       containers:
         - name: i18n
-          image: docker-registry.docker-registry.svc.cluster.local:5000/homapage-i18n:f6954c7
+          image: docker-registry.docker-registry.svc.cluster.local:5000/homapage-i18n:fcb22be
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
