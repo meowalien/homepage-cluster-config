@@ -2,6 +2,9 @@
 
 echo "Waiting for all pods to be ready..."
 
+# wait for apply to finish
+sleep 3
+
 prev_total_lines=0
 
 while true; do

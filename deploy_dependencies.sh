@@ -4,9 +4,6 @@
 kubectl create namespace argocd
 kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 
-# wait for apply to finish
-sleep 1
-
 ./wait_for_pods.sh
 
 # Extract the first line which contains the password
@@ -20,8 +17,5 @@ argocd account update-password --account admin --current-password "$ARGOCD_INITI
 
 # install the dependencies
 kubectl apply -f ./dependencies.yaml
-
-# wait for apply to finish
-sleep 1
 
 ./wait_for_pods.sh
