@@ -5,7 +5,7 @@ metadata:
 data:
   config.yaml: |
     mongodb:
-      uri: "mongodb://admin:password@mongodb-server.mongodb.svc.cluster.local:latest"
+      uri: "mongodb://admin:password@mongodb-server.mongodb.svc.cluster.local:27017"
     server:
       port: 8080
     token:
@@ -48,7 +48,7 @@ spec:
     spec:
       containers:
         - name: i18n
-          image: docker-registry.docker-registry.svc.cluster.local:5000/homapage-i18n:fcb22be
+          image: docker-registry.docker-registry.svc.cluster.local:5000/homapage-i18n:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
