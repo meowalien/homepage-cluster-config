@@ -27,7 +27,7 @@ spec:
     spec:
       containers:
       - name: homepage
-        image: docker-registry.docker-registry.svc.cluster.local:5000/homepage:a2f0c0b
+        image: docker-registry.docker-registry.svc.cluster.local:5000/homepage:latest
         imagePullPolicy: Always
         readinessProbe:
           httpGet:

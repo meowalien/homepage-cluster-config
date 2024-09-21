@@ -5,7 +5,7 @@ metadata:
 data:
   config.yaml: |
     mongodb:
-      uri: "mongodb://admin:password@mongodb-server.mongodb.svc.cluster.local:27017"
+      uri: "mongodb://admin:password@mongodb-server.mongodb.svc.cluster.local:latest"
     server:
       port: 8080
     token:
