@@ -1,3 +1,5 @@
 #!/bin/bash
 
-kubevpn quit && minikube stop && minikube delete
+kubevpn quit
+minikube stop
+minikube delete
