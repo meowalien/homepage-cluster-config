@@ -10,6 +10,7 @@ while true; do
     not_ready_pods=$(echo "$pods" | awk '{split($3, a, "/"); if (a[1] != a[2]) print $0}')
 
     if [ -z "$not_ready_pods" ]; then
+        clear
         echo "All pods are ready."
         break
     else
